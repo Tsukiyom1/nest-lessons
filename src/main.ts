@@ -1,6 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { ValidationPipe } from "@nestjs/common";
+import { LoggingInterceptors } from "./common/interceptors/logging.interceptors";
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
@@ -10,6 +11,8 @@ async function bootstrap() {
 			whitelist: true,
 		}),
 	);
+
+	app.useGlobalInterceptors(new LoggingInterceptors());
 	await app.listen(process.env.PORT ?? 3000);
 	console.log("Server started at this port", 3000);
 }
