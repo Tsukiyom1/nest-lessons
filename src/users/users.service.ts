@@ -2,11 +2,14 @@ import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { IUser } from "src/interfaces/IUser.interface";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { PrismaService } from "src/prisma/prisma.service";
 
 @Injectable()
 export class UsersService {
 	private users: IUser[] = [];
 	private idCounter = 1;
+
+	constructor() {}
 	createUser(dto: CreateUserDto) {
 		const user: IUser = {
 			id: String(this.idCounter++),
